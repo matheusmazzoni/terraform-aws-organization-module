@@ -1,0 +1,23 @@
+name: Terraform test
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    name: Testing
+    runs-on: ubuntu-latest  
+    strategy:
+      matrix:
+        terraform-version: [ 1.0.9 ]
+    steps:
+    - name: Setup terraform v${{ matrix.terraform-version }}
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: ${{ matrix.terraform-version }}
+    
+    - name: Initialize terraform
+      run: terraform init
+
+    - name: Validate terraform
+      run: terraform validate 
