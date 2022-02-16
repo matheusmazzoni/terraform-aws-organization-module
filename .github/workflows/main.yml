@@ -11,6 +11,9 @@ jobs:
       matrix:
         terraform-version: [ 1.0.9 ]
     steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    
     - name: Run Snyk to check configuration files for security issues
       continue-on-error: true
       uses: snyk/actions/iac@master
