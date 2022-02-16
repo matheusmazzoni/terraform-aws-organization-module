@@ -11,6 +11,14 @@ jobs:
       matrix:
         terraform-version: [ 1.0.9 ]
     steps:
+    - name: Run Snyk to check configuration files for security issues
+      continue-on-error: true
+      uses: snyk/actions/iac@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        file: . 
+        
     - name: Setup terraform v${{ matrix.terraform-version }}
       uses: hashicorp/setup-terraform@v1
       with:
